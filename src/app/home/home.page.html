@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Contacts App
+    </ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button (click)="createContact()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list *ngIf="contacts?.length > 0">
+    <!-- {{contacts[contacts.length - 1] | json}} -->
+    <ion-item-sliding *ngFor="let contact of contacts" >
+      <ion-item (click)="getContact(contact?.contactId)">
+      <ion-label>
+        {{contact?.name?.display}}
+        <p *ngIf="contact?.emails" style="margin-top: 3px;">
+          <ion-text>
+            {{contact?.emails[0].address}}
+          </ion-text>
+        </p>
+        <p>
+          <!-- <ion-text *ngFor="let phone of contact?.phones; let i = index">
+            <span *ngIf="i > 0">, </span>{{phone?.number}}
+          </ion-text> -->
+          {{joinNumbers(contact?.phones)}}
+        </p>
+      </ion-label>
+    </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deleteContact(contact?.contactId)">
+          <ion-icon slot="start" name="trash"></ion-icon>
+          DELETE
+        </ion-item-option>
+        <ion-item-option color="primary" (click)="pickContact()">
+          PICK
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- {{result | json}} -->
+  <!-- {{contact | json}} -->
+  
+</ion-content>
